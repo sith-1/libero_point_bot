@@ -3,13 +3,16 @@ import os
 from datetime import datetime
 
 class RatingDatabase:
-    def __init__(self, filename='ratings.json'):
-        # Используем /data для постоянного хранения
+    def __init__(self, filename='ratings.json', history_filename='history.json'):
+        self.filename = filename
+        self.history_filename = history_filename
         data_dir = '/data'
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
         self.filename = os.path.join(data_dir, filename)
+        self.history_filename = os.path.join(data_dir, history_filename)
         self.load_data()
+        self.load_history()
     
     def load_data(self):
         if os.path.exists(self.filename):
